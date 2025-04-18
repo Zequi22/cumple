@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Persígueme!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        #mensaje {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: #333;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        #boton {
+            position: absolute;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ff6f61, #ff8566);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        #boton:hover {
+            transform: scale(1.2);
+            background: linear-gradient(135deg, #ff8566, #ff6f61);
+        }
+    </style>
+</head>
+<body>
+    <div id="mensaje">Oh.. Quieres ver la sorpresa???</div>
+    <button id="boton">¡Haz clic aquí!</button>
+
+    <script>
+        const boton = document.getElementById('boton');
+        const mensaje = document.getElementById('mensaje');
+        let movimientos = 0;
+
+        // Función para mover el botón a una posición aleatoria
+        function moverBoton() {
+            if (movimientos < 8) { // Cambiado de 5 a 8
+                const anchoVentana = window.innerWidth;
+                const altoVentana = window.innerHeight;
+
+                const nuevoX = Math.random() * (anchoVentana - boton.offsetWidth);
+                const nuevoY = Math.random() * (altoVentana - boton.offsetHeight);
+
+                boton.style.left = `${nuevoX}px`;
+                boton.style.top = `${nuevoY}px`;
+
+                if (movimientos > 0) {
+                    const mensajes = ["Uy, casi! >:) ", "jeje ,ahora sí dale 😏!", "Casiii!", "Eso es todo ???" , "Uyuyuy"];
+                    mensaje.textContent = mensajes[Math.floor(Math.random() * mensajes.length)];
+                }
+
+                movimientos++;
+            } else {
+                mensaje.textContent = "¡jeje , me pillaste!";
+                boton.removeEventListener('mouseover', moverBoton);
+            }
+        }
+
+        // Mover el botón al pasar el mouse
+        boton.addEventListener('mouseover', moverBoton);
+
+        // Redirigir al hacer clic
+        boton.addEventListener('click', () => {
+            mensaje.textContent = '¡Redirigiendo a la cumpleañera 😆...';
+            setTimeout(() => {
+                window.location.href = 'tarjeta.html'; 
+            }, 1000); 
+        });
+
+      
+        moverBoton();
+    </script>
+</body>
+</html>
